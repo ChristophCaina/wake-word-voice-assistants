@@ -113,6 +113,13 @@ binary_sensor:
         then:
           - button.press: factory_reset_btn
 
+  - platform: gt911
+    name: Home Button
+    index: 0
+    on_press:
+      then:
+        - logger.log: "Home pressed"
+
 output:
   - platform: ledc
     pin: GPIO47
@@ -525,6 +532,12 @@ script:
             - lambda: id(voice_assistant_phase) = ${voice_assist_idle_phase_id};
           else:
             - lambda: id(voice_assistant_phase) = ${voice_assist_muted_phase_id};
+
+touchscreen:
+  - platform: gt911
+    i2c_id: bus_a
+    interrupt_pin: GPIO3
+    update_interval: 20ms
 
 switch:
   - platform: gpio
